@@ -1,0 +1,60 @@
+
+
+
+<!-- Modal for updating each item -->
+<div class="modal fade" id="updateModal<%= items._id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Update Data</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Form inside modal with correct item ID -->
+                <form id="updateForm<%= items._id %>" action="/update/<%= items._id %>" method="post">
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Name:</label>
+                        <input name="name" type="text" class="form-control" id="nameInput<%= items._id %>" value="<%= items.name %>">
+                    </div>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Type:</label>
+                        <input name="type" type="text" class="form-control" id="typeInput<%= items._id %>" value="<%= items.type %>">
+                    </div>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Range:</label>
+                        <input name="range" type="number" step="0.01" class="form-control" id="rangeInput<%= items._id %>" value="<%= items.range %>">
+                    </div>
+                    <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Price:</label>
+                        <input name="price" type="number" class="form-control" id="priceInput<%= items._id %>" value="<%= items.price %>">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-info">Update</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for deleting each item -->
+<div class="modal fade" id="deleteModal<%= items._id %>" tabindex="-1" aria-labelledby="deleteModalLabel<%= items._id %>" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="deleteModalLabel<%= items._id %>">Delete Data</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to DELETE data with ID <%= items._id %>?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <form action="/delete/<%= items._id %>" method="POST" class="d-inline">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
