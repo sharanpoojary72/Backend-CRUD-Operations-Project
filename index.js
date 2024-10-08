@@ -41,12 +41,21 @@ app.use(bodyParser.json());
 
 app.use(express.static(__dirname + '/public'));
 
-
+// Assuming you are using a session or JWT for authentication
+function checkAuthentication(req, res, next) {
+    if (req.isAuthenticated || req.session.isLoggedIn) {
+        // If the user is authenticated, proceed to the dashboard route
+        return next();
+    } else {
+        // If not authenticated, redirect to login page
+        return res.redirect('/login');
+    }
+}
 
 //EJS-----------------------------
 app.use('/',appRouter);
 
-app.use('/', router)
+app.use('/',checkAuthentication, router)
 
 
 

@@ -67,6 +67,7 @@ const loginPost = async (req, res) => {
     console.log(req.sessionID);
     console.log(req.session);
     
+    req.session.isLoggedIn = true;
     req.session.user = { username: user.username };
     // If successful, redirect to the home page
     res.redirect('/dashboard');
