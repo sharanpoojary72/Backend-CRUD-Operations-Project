@@ -7,7 +7,8 @@
     <title>Document</title>
 
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
@@ -18,10 +19,12 @@
         @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
         body {
-            background-color: #FFD700;
+            background-color: #F5F5DC; 
+            /* background-image: linear-gradient(#E0F7FA, #E6E6FA); */
             font-family: "Poppins", system-ui;
+            height: 100vh;
         }
-
+        
         .boxShadow {
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
@@ -31,7 +34,7 @@
             /* Make sure borders collapse doesn't interfere */
             border-spacing: 0;
             /* No spacing between cells */
-            border-radius: 15px;
+            border-radius: 10px;
             /* Add border radius */
             border: 1px solid black;
             /* Ensure the outer border is styled */
@@ -41,23 +44,24 @@
         }
 
         .rounded-table thead th:first-child {
-            border-top-left-radius: 15px;
+            border-top-left-radius: 10px;
         }
 
         .rounded-table thead th:last-child {
-            border-top-right-radius: 15px;
+            border-top-right-radius: 10px;
         }
 
         .rounded-table thead th {
-            background-color: #9631F2;
+            /* background-color: #9631F2; */
+            background-color: #FFB300;
         }
 
         .rounded-table tbody tr:last-child td:first-child {
-            border-bottom-left-radius: 15px;
+            border-bottom-left-radius: 10px;
         }
 
         .rounded-table tbody tr:last-child td:last-child {
-            border-bottom-right-radius: 15px;
+            border-bottom-right-radius: 10px;
         }
 
         .hidden-row {
@@ -67,6 +71,29 @@
         .input-group {
             width: 30em;
         }
+
+        /* Custom scroll bar (optional) */
+        .table-responsive::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .table-responsive::-webkit-scrollbar-track {
+            background-color: #f1f1f1;
+        }
+
+        .table-responsive::-webkit-scrollbar-thumb {
+            background-color: #888;
+            border-radius: 10px;
+        }
+
+        .table-responsive::-webkit-scrollbar-thumb:hover {
+            background-color: #555;
+        }
+        .navbar-logo{
+            background-image: url('../public/CARAPI.png');
+        }
+
+        
     </style>
 </head>
 
@@ -74,18 +101,18 @@
 
     <nav class="navbar navbar-expand-lg border-black border-bottom">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Logo</a>
+            <a class="navbar-brand" href="#"><img src="/CARAPI.png" alt="" style="height: 40px;"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav ms-auto">
-                    
-                    <a type="button" class="btn btn-warning mx-1 my-1" href="/">Hi User</a>
-                
-                    <a type="button" class="btn btn-warning mx-1 my-1" class="nav-link" href="/login">Log Out</a>
-                    
+
+                    <a type="button" class="btn btn-warning mx-1 my-1" href="/dashboard">Hi <%= username %></a>
+
+                    <a type="button" class="btn btn-warning mx-1 my-1" class="nav-link" href="/logout">Log Out</a>
+
                 </div>
             </div>
         </div>
@@ -182,7 +209,7 @@
             <!-- END -->
             <!-- -------------- Refresh Dashboard ---------- -->
 
-            <form action="/" method="get">
+            <form action="/dashboard" method="get">
                 <button class="btn btn-primary boxShadow animate__animated animate__fadeInRight" type="submit"><i
                         class="fa-solid fa-arrows-rotate"></i>Refresh
                     Dashboard</button>
@@ -190,63 +217,64 @@
         </div>
         <!-- END -->
         <!-- -----------------TABLE FOR DATA----------------- -->
-        <table
-            class="table table-striped table-hover w-75 table-bordered border-black rounded-table animate__animated animate__fadeIn">
-            <thead>
-                <tr class="text-center">
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Range</th>
-                    <th>Price</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% cars.forEach((items,index)=> { %>
-                    <!-- ----------INCLUDE hidden-row IN TR LATER---------- -->
-                    <tr class="table-row text-center hidden-row">
-                        <td>
-                            <%= items._id %>
-                        </td>
-                        <td>
-                            <%= items.name %>
-                        </td>
-                        <td>
-                            <%= items.type %>
-                        </td>
-                        <td>
-                            <%= items.range %>
-                        </td>
-                        <td>
-                            <%= items.price %>
-                        </td>
-                        <td>
-                            <!-- -----------Update Button----------- -->
-                            <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                                data-bs-target="#updateModal<%= items._id %>">
-                                <i class="fa-solid fa-file-pen"></i>Update
-                            </button>
-
-                            <!-- -----------Delete Button----------- -->
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                data-bs-target="#deleteModal<%= items._id %>">
-                                <i class="fa-solid fa-trash"></i>Delete
-                            </button>
-                        </td>
+        <div class="table-responsive rounded-table  boxShadow" style=" height: 25rem; overflow-y: auto;">
+            <table
+                class="table table-striped table-hover w-100 table-bordered border-black  animate__animated animate__fadeIn animate__slower">
+                <thead>
+                    <tr class="text-center">
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th>Range</th>
+                        <th>Price</th>
+                        <th>Action</th>
                     </tr>
-                    <!-- Include the modal by passing the item -->
-                    <%- include('modals', { items: items }) %>
-                        <% }) %>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <% cars.forEach((items, index)=> { %>
+                        <!-- ----------INCLUDE hidden-row IN TR LATER---------- -->
+                        <tr class="table-row text-center hidden-row">
+                            <td>
+                                <%= items._id %>
+                            </td>
+                            <td>
+                                <%= items.name %>
+                            </td>
+                            <td>
+                                <%= items.type %>
+                            </td>
+                            <td>
+                                <%= items.range %>
+                            </td>
+                            <td>
+                                <%= items.price %>
+                            </td>
+                            <td>
+                                <!-- -----------Update Button----------- -->
+                                <button type="button" class="btn btn-info" data-bs-toggle="modal"
+                                    data-bs-target="#updateModal<%= items._id %>">
+                                    <i class="fa-solid fa-file-pen"></i>Update
+                                </button>
+
+                                <!-- -----------Delete Button----------- -->
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                    data-bs-target="#deleteModal<%= items._id %>">
+                                    <i class="fa-solid fa-trash"></i>Delete
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- Include the modal by passing the item -->
+                        <%- include('modals', { items: items }) %>
+                            <% }) %>
+                </tbody>
+            </table>
+        </div>
     </div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-        crossorigin="anonymous">
-    </script>
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
+        </script>
 
     <script>
         // Example starter JavaScript for disabling form submissions if there are invalid fields

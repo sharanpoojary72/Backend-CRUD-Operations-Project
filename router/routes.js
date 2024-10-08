@@ -13,9 +13,17 @@ const data = require('../controllers/dataController');
 const router = express();
 router.use(bodyParser.json());
 
+const ensureAuthenticated = (req, res, next) => {
+    // Check if user session exists (assuming req.session.username is set on login)
+    if (req.session ||req.session.username) {
+        return next();  // User is authenticated, allow access
+    } else {
+        // If not authenticated, redirect to login page
+        res.redirect('/login');
+    }
+};
 
-
-router.get('/', data.showData)
+router.get('/dashboard',ensureAuthenticated, data.showData)
 
 router.get('/:id', data.searchData)
 // router.get('/search', data.searchData)

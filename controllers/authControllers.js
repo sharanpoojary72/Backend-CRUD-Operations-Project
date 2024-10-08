@@ -1,17 +1,24 @@
-const userSchema = require('../models/userSchema');
+const bcrypt = require('bcrypt'); // Import bcrypt for hashing
 const jwt = require('jsonwebtoken');
+
+const userSchema = require('../models/userSchema');
+
 
 const signUpGet = (req, res) => {
     res.render('signUp');
 }
 
-
-
 const signUpPost = async (req, res) => {
     const { username, password } = req.body;
     console.log(req.body);
+
     try {
-        const user = new userSchema({ username, password });
+        // Hash the password before saving
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+        // Create a new user with the hashed password
+        const user = new userSchema({ username, password: hashedPassword });
         await user.save();
 
         // Generate token only after successful user creation
@@ -21,41 +28,61 @@ const signUpPost = async (req, res) => {
         res.render('token', { token: token, error: null }); // Pass null for error
     } catch (error) {
         console.error(error); // Log the error for debugging
+
         // If there is an error, render the token view with an error message
-        if(error.code){
-            res.render('token', { token: null, error: "Username Already Exists." }); // Pass the error message
-
+        if (error.code === 11000) {  // Check for duplicate key error (username already exists)
+            res.render('token', { token: null, error: "Username Already Exists." });
         } else {
-
             res.render('token', { token: null, error: error.message }); // Pass the error message
         }
     }
 };
 
+
 const loginGet = (req, res) => {
     res.render('login');
 }
 
-var userData = {};
+
 const loginPost = async (req, res) => {
     const { username, password } = req.body;
-
+    try{
+    // Find the user by username
     const user = await userSchema.findOne({ username });
 
+    // Check if user exists
     if (!user) {
-        res.render('token', { token: null, error: "Username does not Exists" });
+        return res.render('token', { token: null, error: "Username does not exist" });
+    }
+
+    // Compare the input password with the stored hashed password using bcrypt
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    // If password does not match
+    if (!isMatch) {
+        return res.render('token', { token: null, error: "Invalid Credentials" });
+    }
+
+    // Save user details in session after successful login
+    console.log(req.sessionID);
+    console.log(req.session);
+    
+    req.session.user = { username: user.username };
+    // If successful, redirect to the home page
+    res.redirect('/dashboard');
+    } catch (error) {
+        return res.render('token', { token: null, error: error });
     }
     
-    // const isMatch = await user.comparePassword(password);
-    // if (!isMatch) {
-    //     return res.status(400).send('Invalid credentials');
-    // }
-    else if (password !== user.password) {
-        res.render('token', { token: null, error: "Invalid Credentials" });
-    }
-    else {
-        res.redirect('/');
-    }
+};
+
+const logOut = (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            return res.render('token', { token: null, error: 'Failed to log out' });
+        }
+        res.redirect('/login');  // Redirect to login page after logout
+    });
 }
 
-module.exports = { signUpGet, signUpPost, loginGet, loginPost };
+module.exports = { signUpGet, signUpPost, loginGet, loginPost, logOut };

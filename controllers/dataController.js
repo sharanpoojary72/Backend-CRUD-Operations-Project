@@ -3,12 +3,14 @@ const mongoose = require('mongoose')
 
 const carSchema = require('../models/carSchema');
 
-
 // Show all Data 
 const showData = async (req, res) => {
+    
     try {
+        const userName = req.session.user ? req.session.user.username : 'Guest';
+        console.log(userName);
         const cars = await carSchema.find();
-        res.render('index', { cars });
+        res.render('index', { cars:cars,username: userName });
     } catch (err) {
         res.json(err);
     }
@@ -79,7 +81,7 @@ const searchData = (req, res) => {
 const deleteData = (req,res)=>{
     carSchema.findByIdAndDelete(req.params.id)
     .then(()=>{
-        res.redirect('/')
+        res.redirect('/dashboard')
     })
     .catch((err) => {
         console.error(err);
@@ -97,7 +99,7 @@ const updateData = (req, res) => {
         { new: true }
     )
     .then(() => {
-        res.redirect('/');
+        res.redirect('/dashboard');
     })
     .catch(err => {
         console.log(err);
@@ -118,7 +120,7 @@ const addData = async (req, res) => {
 
     try {
         const dataToSave = await data.save()
-        res.status(200).redirect('/')
+        res.status(200).redirect('/dashboard')
     }
     catch (error) {
         res.status(400).json({message: error.message})
