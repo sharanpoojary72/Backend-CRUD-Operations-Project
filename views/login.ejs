@@ -9,54 +9,43 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
-
     <style>
         body {
-            /* background-color: #9631F2; */
-            background-image: url('/cars.jpg');
+            background-image: url('/cars2.jpg');
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
-            backdrop-filter: brightness(0.4);
+            /* backdrop-filter: brightness(0.4); */
         }
-        .card {
-            border-radius: 20px;
-            background-color: #F5F5DC;
-            display: grid;
-            grid-template-columns: 1fr 1fr; /* Two equal columns for image and form */
-            width: 100%;
-            max-width: 800px; /* Max width for card */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
-            overflow: hidden; /* To ensure content doesn't overflow */
-        }
-        .image-section {
-            background-image: url('/key.jpg');
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            min-height: 400px; /* Minimum height to ensure image visibility */
-        }
-        .form-section {
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
+
         .login-container {
             display: grid;
             place-items: center; /* Center the card horizontally and vertically */
             min-height: 100vh;
         }
+
+        .card {
+            border-radius: 10px;
+            background-color: rgba(245, 245, 220, 0.2); /* Adjusted transparency for background */
+            backdrop-filter: blur(8px); /* Added blur effect */
+            width: 100%;
+            max-width: 400px; /* Max width for card */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+            padding: 20px; /* Added padding */
+            overflow: hidden;
+        }
+
+        .form-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: #fff;
+        }
+
         @media (max-width: 580px) {
             .card {
                 grid-template-columns: none;
                 grid-template-rows: auto 1fr;
-            }
-
-            .image-section {
-                width: 100%;
-                height: 200px;
-                min-height: 100px;
             }
 
             .form-section {
@@ -68,11 +57,7 @@
 <body>
 
     <div class="container login-container">
-        <h1 class="my-3 animate__animated animate__fadeInDown text-light"> CAR API</h1>
         <div class="card animate__animated animate__fadeInUp">
-            <!-- Image Section -->
-            <div class="image-section"></div>
-
             <!-- Form Section -->
             <div class="form-section">
                 <h2 class="text-center mb-4">Login</h2>
@@ -89,13 +74,13 @@
                         <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
                     </div>
                     
-                    <!-- Sign up button -->
+                    <!-- Login button -->
                     <div class="d-grid">
                         <button type="submit" class="btn btn-primary">Login</button>
                     </div>
                 </form>
 
-                <!-- Sign in link -->
+                <!-- Sign up link -->
                 <div class="text-center mt-3">
                     <p>Don't have an account? <a href="/signup">Sign up</a></p>
                 </div>

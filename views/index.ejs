@@ -13,18 +13,31 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-
-    <style>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+        
+        <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-        body {
-            background-color: #F5F5DC; 
-            /* background-image: linear-gradient(#E0F7FA, #E6E6FA); */
-            font-family: "Poppins", system-ui;
-            height: 100vh;
+        .navbar-logo {
+            background-image: url('../public/CARAPI.png');
         }
-        
+        body {
+            /* background-color: #F5F5DC;  */
+            /* background-image: linear-gradient(#47e7fc, #2222f9); */
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .content {
+            background-image: url(/tire-track.png);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            height: 90vh;
+            border-bottom: 2px solid black;
+        }
+
         .boxShadow {
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
@@ -53,7 +66,7 @@
 
         .rounded-table thead th {
             /* background-color: #9631F2; */
-            background-color: #FFB300;
+            background-color: #a07a22;
         }
 
         .rounded-table tbody tr:last-child td:first-child {
@@ -89,17 +102,15 @@
         .table-responsive::-webkit-scrollbar-thumb:hover {
             background-color: #555;
         }
-        .navbar-logo{
-            background-image: url('../public/CARAPI.png');
+        .btn-warning{
+            background-color: #ba8f29;
         }
-
-        
     </style>
 </head>
 
 <body>
 
-    <nav class="navbar navbar-expand-lg border-black border-bottom">
+    <nav class="navbar navbar-expand-lg border-black border-bottom" style="background-color: #26251E;">
         <div class="container-fluid">
             <a class="navbar-brand" href="#"><img src="/CARAPI.png" alt="" style="height: 40px;"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
@@ -118,8 +129,8 @@
         </div>
     </nav>
 
-    <div class="d-flex flex-column justify-content-center align-items-center mt-3">
-        <h1 class="my-3 animate__animated animate__fadeInDown"> CAR API</h1>
+    <div class="content d-flex flex-column justify-content-center align-items-center">
+        <h1 class="my-3 animate__animated animate__fadeInDown" style="color:#fff;"> CAR API</h1>
 
         <!-- ---------------- SEARCH BY ID METHOD ---------------- -->
         <form action="/search" method="GET" class="row g-3 needs-validation mb-4" novalidate>
@@ -217,7 +228,7 @@
         </div>
         <!-- END -->
         <!-- -----------------TABLE FOR DATA----------------- -->
-        <div class="table-responsive rounded-table  boxShadow" style=" height: 25rem; overflow-y: auto;">
+        <div class="table-responsive rounded-table  boxShadow w-75" style=" height: 25rem; overflow-y: auto;">
             <table
                 class="table table-striped table-hover w-100 table-bordered border-black  animate__animated animate__fadeIn animate__slower">
                 <thead>
